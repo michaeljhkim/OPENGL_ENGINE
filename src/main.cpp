@@ -10,11 +10,11 @@
 
 
 
-int main (int argc, char **argv) {
-    Window test;
+int main () {
+    Window main_window;
 
     //16:9 1280x720 window
-    test.create_window(1280, 720);
+    main_window.create_window(1280, 720);
 
     return 0;
 }
