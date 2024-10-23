@@ -11,16 +11,15 @@ The goal of this engine is NOT to create the most advanced, best looking engine 
 - Randomly Generated world system that is not repetitive feeling
 - Decent enemy AI
 
-- Learning how to make a decent game engine for personal useage
+- Learning how to make a decent game engine for personal useage <br />
 
 
 On the note of moddablity, the hope is creating a scripting language way down the line that also has client-side multiplayer capbalities.
-Like GZDoom, but the issue there is getting custom functions to work. This is still way down the line.
-
-
+Like GZDoom, but the issue there is getting custom functions to work. This is still way down the line. <br />
 
 
 IMMEDIATE TODO LIST (might as well just put it here):
 - add obj import support
+- figure out better name than just OPENGL_ENGINE
 
 
