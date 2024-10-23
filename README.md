@@ -14,12 +14,10 @@ The goal of this engine is NOT to create the most advanced, best looking engine 
 - Learning how to make a decent game engine for personal useage
 
 ##
-##
 
 On the note of moddablity, the hope is creating a scripting language way down the line that also has client-side multiplayer capbalities.
 Like GZDoom, but the issue there is getting custom functions to work. This is still way down the line.
 
-##
 ##
 
 IMMEDIATE TODO LIST (might as well just put it here):
