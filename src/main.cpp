@@ -3,19 +3,18 @@
 #include <fstream>
 #include <string>
 
-#include <SDL2/SDL.h> /* macOS- and GNU/Linux-specific */
-#include <glad/glad.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <vector>
-#include <cstddef>
-#include <cstdlib>
+
+#include "window/Window.h"
 
 
 
 
 
 int main (int argc, char **argv) {
-  
+    Window test;
+
+    //16:9 1280x720 window
+    test.create_window(1280, 720);
+
+    return 0;
 }

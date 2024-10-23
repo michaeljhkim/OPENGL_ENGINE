@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD 17)
 add_executable(opengl_engine
     src/main.cpp
     src/glad.c
+
+    src/window/Window.cpp
 )
 
 # Find SDL2 package

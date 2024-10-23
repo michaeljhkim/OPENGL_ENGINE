@@ -5,7 +5,8 @@
 class Window {
 public:
     Window();           // Constructor
-    int create_window();      // Member function
+    //can probably delete win_delay
+    int create_window(int win_width, int win_height);      // Member function
 };
 
 #endif

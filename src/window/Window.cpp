@@ -18,19 +18,13 @@
 #include <cstdlib>
 
 
-/* Sets constants */
-#define WIDTH 1280
-#define HEIGHT 720
-#define DELAY 3000
-
-
 
 Window::Window() {
     // Constructor body
 }
 
 
-int Window::create_window() {
+int Window::create_window(int win_width, int win_height) {
     /* Initialises data */
     SDL_Window *window = NULL;
 
@@ -47,18 +41,28 @@ int Window::create_window() {
     window = SDL_CreateWindow("SDL Example", /* Title of the SDL window */
                 SDL_WINDOWPOS_UNDEFINED, /* Position x of the window */
                 SDL_WINDOWPOS_UNDEFINED, /* Position y of the window */
-                WIDTH, /* Width of the window in pixels */
-                HEIGHT, /* Height of the window in pixels */
-                0); /* Additional flag(s) */
+                win_width, /* Width of the window in pixels */
+                win_height, /* Height of the window in pixels */
+                0);     /* Additional flag(s) */
 
     /* Checks if window has been created; if not, exits program */
     if (window == NULL) {
-    fprintf(stderr, "SDL window failed to initialise: %s\n", SDL_GetError());
-    return 1;
+        fprintf(stderr, "SDL window failed to initialise: %s\n", SDL_GetError());
+        return 1;
+    }
+
+    bool isrunning = true;
+    while(isrunning) {
+        SDL_Event event;
+
+        while(SDL_PollEvent(&event)) {
+            if(event.type == SDL_QUIT)
+                isrunning = false;
+        }
     }
 
     /* Pauses all SDL subsystems for a variable amount of milliseconds */
-    SDL_Delay(DELAY);
+    //SDL_Delay(100);
 
     /* Frees memory */
     SDL_DestroyWindow(window);
