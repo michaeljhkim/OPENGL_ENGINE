@@ -24,6 +24,6 @@ IMMEDIATE TODO LIST (might as well just put it here):
 - add obj import support
 - figure out and add dynamic light systems
 - figure out simple animation system
-- figure out better name than just OPENGL_ENGINE
+- figure out better name than just OPENGL_ENGINE (possible name can be YURRGOHT or YERRGOHT or UYRRGOHT)
 
 
