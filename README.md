@@ -23,6 +23,7 @@ Like GZDoom, but the issue there is getting custom functions to work. This is st
 IMMEDIATE TODO LIST (might as well just put it here):
 - add obj import support
 - figure out and add dynamic light systems
+- figure out simple animation system
 - figure out better name than just OPENGL_ENGINE
 
 
