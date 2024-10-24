@@ -10,6 +10,7 @@ The goal of this engine is NOT to create the most advanced, best looking engine 
 - Optional higher fidelity options: nothing too crazy, but it will be figured out as I go
 - Randomly Generated world system that is not repetitive feeling
 - Decent enemy AI
+- Accomodate 2D sprite based games (think Doom or Duke nukem 3D)
 
 - Learning how to make a decent game engine for personal useage
 
