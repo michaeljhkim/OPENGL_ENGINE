@@ -2,11 +2,16 @@ cmake_minimum_required(VERSION 3.5.0)
 project(opengl_engine)
 set(CMAKE_CXX_STANDARD 17)
 
+# Include the 'include' directory for headers
+include_directories(${CMAKE_SOURCE_DIR}/include)
+
 add_executable(opengl_engine
     src/main.cpp
-    src/glad.c
+    #src/glad.c
+    src/Graphics/glad.c
 
-    src/window/Window.cpp
+    src/Graphics/Shaders/Shaders.cpp
+    src/UI/window/Window.cpp
 )
 
 # Find SDL2 package
