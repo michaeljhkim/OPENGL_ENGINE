@@ -10,6 +10,7 @@ The goal of this engine is NOT to create the most advanced, best looking engine 
 - Optional higher fidelity options: nothing too crazy, but it will be figured out as I go
 - Randomly Generated world system that is not repetitive feeling
 - Decent enemy AI
+- Accomodate 2D sprite based games (think Doom or Duke nukem 3D)
 
 - Learning how to make a decent game engine for personal useage
 
@@ -22,6 +23,8 @@ Like GZDoom, but the issue there is getting custom functions to work. This is st
 
 IMMEDIATE TODO LIST (might as well just put it here):
 - add obj import support
-- figure out better name than just OPENGL_ENGINE
+- figure out and add dynamic light systems
+- figure out simple animation system
+- figure out better name than just OPENGL_ENGINE (possible name can be YURRGOHT or YERRGOHT or UYRRGOHT)
 
 
