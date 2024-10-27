@@ -8,9 +8,11 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 add_executable(opengl_engine
     src/main.cpp
     #src/glad.c
-    src/Graphics/glad.c
 
+    src/Graphics/glad.c
     src/Graphics/Shaders/Shaders.cpp
+    src/Graphics/Obj_loader/Obj_loader.cpp
+
     src/UI/window/Window.cpp
 )
 
@@ -21,4 +23,4 @@ find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIRS})
 
 # Link SDL2 library
-target_link_libraries(opengl_engine ${SDL2_LIBRARIES})
+target_link_libraries(opengl_engine ${SDL2_LIBRARIES} tinyobjloader)

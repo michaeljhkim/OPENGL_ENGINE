@@ -6,8 +6,7 @@
 
 class Shaders {
 public:
-    Shaders();       // Constructor
-    int load_shaders(GLint &program);      // Member function
+    Shaders(GLint &shaderProgram);       // Constructor
 };
 
 #endif

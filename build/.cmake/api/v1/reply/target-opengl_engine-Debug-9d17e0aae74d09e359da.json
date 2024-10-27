@@ -32,7 +32,7 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 24,
+				"line" : 26,
 				"parent" : 0
 			},
 			{
@@ -44,7 +44,7 @@
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 21,
+				"line" : 23,
 				"parent" : 0
 			}
 		]
@@ -83,7 +83,8 @@
 			[
 				0,
 				2,
-				3
+				3,
+				4
 			]
 		},
 		{
@@ -134,6 +135,11 @@
 				"backtrace" : 2,
 				"fragment" : "/usr/lib/libSDL2-2.0.so.0.3000.8",
 				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-ltinyobjloader",
+				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
@@ -154,7 +160,8 @@
 				0,
 				1,
 				2,
-				3
+				3,
+				4
 			]
 		}
 	],
@@ -176,6 +183,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/Graphics/Shaders/Shaders.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/Graphics/Obj_loader/Obj_loader.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{

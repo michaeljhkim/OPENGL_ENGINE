@@ -19,6 +19,12 @@
 },
 {
   "directory": "/home/mk/Documents/OPENGL_ENGINE/build",
+  "command": "/usr/bin/g++ -I/home/mk/Documents/OPENGL_ENGINE/include -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/opengl_engine.dir/src/Graphics/Obj_loader/Obj_loader.cpp.o -c /home/mk/Documents/OPENGL_ENGINE/src/Graphics/Obj_loader/Obj_loader.cpp",
+  "file": "/home/mk/Documents/OPENGL_ENGINE/src/Graphics/Obj_loader/Obj_loader.cpp",
+  "output": "CMakeFiles/opengl_engine.dir/src/Graphics/Obj_loader/Obj_loader.cpp.o"
+},
+{
+  "directory": "/home/mk/Documents/OPENGL_ENGINE/build",
   "command": "/usr/bin/g++ -I/home/mk/Documents/OPENGL_ENGINE/include -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/opengl_engine.dir/src/UI/window/Window.cpp.o -c /home/mk/Documents/OPENGL_ENGINE/src/UI/window/Window.cpp",
   "file": "/home/mk/Documents/OPENGL_ENGINE/src/UI/window/Window.cpp",
   "output": "CMakeFiles/opengl_engine.dir/src/UI/window/Window.cpp.o"

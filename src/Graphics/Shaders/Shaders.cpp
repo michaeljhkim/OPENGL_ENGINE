@@ -5,32 +5,27 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include <tiny_obj_loader.h>
 
-#include <vector>
-#include <cstddef>
-#include <cstdlib>
-
-
-Shaders::Shaders() {
-    // Constructor body
-}
 
 //Constructor or whatever, where it establishes the function exists
 void file_load(std::string shader_file, std::string &src);
 
+
 //Load shaders into the program with this
-int Shaders::load_shaders(GLint &shaderProgram) {
+Shaders::Shaders(GLint &shaderProgram) {
     char infoLog[512];
     GLint success;
     std::string v_src, f_src;
-    file_load("vertex_core.glsl", v_src);
-    file_load("fragment_core.glsl", f_src);
+
+    //temporary place to put the shaders, until I figure something better out
+    file_load("temp_asset_folder/vertex_core.glsl", v_src);
+    file_load("temp_asset_folder/fragment_core.glsl", f_src);
 
     GLint vertexShader = glCreateShader(GL_VERTEX_SHADER);
     const GLchar* vertSrc = v_src.c_str(); 
@@ -51,10 +46,7 @@ int Shaders::load_shaders(GLint &shaderProgram) {
     
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
-
-    return 0;
 }
-
 
 
 //we transfer the shader data to a string

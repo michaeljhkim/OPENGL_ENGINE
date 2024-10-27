@@ -11,7 +11,7 @@
 
 int main () {
     //16:9 1280x720 window
-    Window main_window(1280, 720);
+    Window main_window(1080, 1080);
 
     return 0;
 }
