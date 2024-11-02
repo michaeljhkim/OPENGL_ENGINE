@@ -13,121 +13,66 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <tiny_obj_loader.h>
 
+//For generating much later
+GLuint VAO, VBO, EBO;
 
-// Struct to hold a single vertex's attributes
-struct Vertex {
-    float position[3];
-    float normal[3];
-    float texcoord[2];
-    float color[3];  // Add this line to store color
-};
-void render(GLuint vao, size_t vertex_count);
+// Variables that LoadObj will fill, and we can therefore use
+tinyobj::attrib_t attrib; 
+std::vector<tinyobj::shape_t> shapes; 
+std::vector<tinyobj::material_t> materials;
+std::string warn, err;
+bool bTriangulate = true;
 
-
-//Most of the code is from tiny_obj_loader github
-//Only changes is storing the position, normal, texcoord, and color in a struct
-Obj_loader::Obj_loader(const std::string& obj_path, GLuint &VAO, GLuint &VBO, GLuint &EBO, size_t &index_count) {
-    tinyobj::attrib_t attrib;
-    std::vector<tinyobj::shape_t> shapes;
-    std::vector<tinyobj::material_t> materials;
-    std::string warn, err;
-
-    bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, obj_path.c_str());
+// Function to load OBJ and store data for OpenGL usage
+// This function is specifically used for loading stuff up
+Obj_loader::Obj_loader(const std::string& obj_path) {
+    bool ret = tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, obj_path.c_str(), nullptr, bTriangulate);
     if (!warn.empty()) 
         std::cout << "Warning: " << warn << std::endl;
     if (!err.empty()) 
         std::cerr << "Error: " << err << std::endl;
     if (!ret) 
+        std::cerr << "Error: something is wrong with ret in Obj_loader" << std::endl;
         return;
-
-    std::vector<Vertex> vertices;
-    std::vector<unsigned int> indices;
-
-    // Loop over shapes
-    for (const auto& shape : shapes) {
-        size_t index_offset = 0;
-        for (const auto& num_vertices : shape.mesh.num_face_vertices) {
-            for (size_t v = 0; v < num_vertices; v++) {
-                tinyobj::index_t idx = shape.mesh.indices[index_offset + v];
-
-                Vertex vertex = {};
-                vertex.position[0] = attrib.vertices[3 * idx.vertex_index + 0];
-                vertex.position[1] = attrib.vertices[3 * idx.vertex_index + 1];
-                vertex.position[2] = attrib.vertices[3 * idx.vertex_index + 2];
-
-                if (idx.normal_index >= 0) {
-                    vertex.normal[0] = attrib.normals[3 * idx.normal_index + 0];
-                    vertex.normal[1] = attrib.normals[3 * idx.normal_index + 1];
-                    vertex.normal[2] = attrib.normals[3 * idx.normal_index + 2];
-                }
-
-                if (idx.texcoord_index >= 0) {
-                    vertex.texcoord[0] = attrib.texcoords[2 * idx.texcoord_index + 0];
-                    vertex.texcoord[1] = attrib.texcoords[2 * idx.texcoord_index + 1];
-                }
-                
-                // Extract vertex color if available
-                if (!attrib.colors.empty()) {
-                    vertex.color[0] = attrib.colors[3 * idx.vertex_index + 0];
-                    vertex.color[1] = attrib.colors[3 * idx.vertex_index + 1];
-                    vertex.color[2] = attrib.colors[3 * idx.vertex_index + 2];
-                } 
-                else {
-                    // Default color if no color information is available
-                    vertex.color[0] = 1.0f;  // Default to white
-                    vertex.color[1] = 1.0f;  
-                    vertex.color[2] = 1.0f;  
-                }
+}
 
 
-                // Store vertex and index
-                vertices.push_back(vertex);
-                indices.push_back(index_offset + v);
-            }
-            index_offset += num_vertices;
+
+
+
+/*
+int blend_weights(const std::string& base_obj_path, const std::string& weights_path, tinyobj::attrib_t& blended_attrib, std::vector<tinyobj::shape_t>& shapes) {
+    //tinyobj::shape_t shape = shapes[0];
+    tinyobj::attrib_t base_attrib;
+    load_obj(base_obj_path, base_attrib, shapes);
+
+    std::vector<tinyobj::attrib_t> targets_attribs(35);
+    std::vector<std::vector<tinyobj::shape_t>> targets_shapes(35);
+    std::string filePath;
+    for (size_t i = 0; i < 35; i++) {
+        filePath = "data/faces/" + std::to_string(i) + ".obj";
+        load_obj(filePath, targets_attribs[i], targets_shapes[i]);
+    }
+    blended_attrib = base_attrib;
+
+    // Load weights
+    std::ifstream weights_file(weights_path);
+    std::vector<float> weights;
+    float w;
+    while (weights_file >> w)
+        weights.push_back(w);
+
+
+    // Apply blended weights formula
+    // Blend the vertex position
+    //std::cout << base_indices.size() << std::endl;
+    for (size_t i = 0; i < weights.size(); i++) {
+        assert(base_attrib.vertices.size() == targets_attribs[i].vertices.size());
+        for (size_t k = 0; k < base_attrib.vertices.size(); k++) {
+            blended_attrib.vertices[k] += weights[i] * (targets_attribs[i].vertices[k] - base_attrib.vertices[k]);
         }
     }
 
-    index_count = indices.size();
-
-    // Generate and bind VAO, VBO, and EBO
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
-
-    glBindVertexArray(VAO);
-
-    // Upload vertex data to VBO
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
-
-    // Upload index data to EBO
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
-
-    // Define vertex attributes
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position));
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, texcoord));
-    glEnableVertexAttribArray(2);
-
-    // Add color attribute
-    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, color));
-    glEnableVertexAttribArray(3);
-
-    glBindVertexArray(0);  // Unbind VAO
+    return 0;
 }
-
-
-
-
-
-// Render function using glDrawElements
-// not sure if I need this function
-void render(GLuint VAO, size_t index_count) {
-    glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, index_count, GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
-}
+*/

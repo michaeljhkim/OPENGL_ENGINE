@@ -18,34 +18,46 @@ void file_load(std::string shader_file, std::string &src);
 
 
 //Load shaders into the program with this
-Shaders::Shaders(GLint &shaderProgram) {
-    char infoLog[512];
-    GLint success;
+Shaders::Shaders(GLint& shaderProgram) {
+    int success;
+    char error_msg[512];
     std::string v_src, f_src;
 
     //temporary place to put the shaders, until I figure something better out
     file_load("temp_asset_folder/vertex_core.glsl", v_src);
     file_load("temp_asset_folder/fragment_core.glsl", f_src);
 
-    GLint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    GLuint vs = glCreateShader(GL_VERTEX_SHADER);
     const GLchar* vertSrc = v_src.c_str(); 
-    glShaderSource(vertexShader, 1, &vertSrc, nullptr);
-    glCompileShader(vertexShader);
-    
-    // fragment shader
-    GLint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(vs, 1, &vertSrc, NULL);
+    glCompileShader(vs);
+    glGetShaderiv(vs, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        glGetShaderInfoLog(vs, 512, NULL, error_msg);
+        std::cout << "Vertex Shader Failed: " << error_msg << std::endl;
+    }
+
+    GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
     const GLchar* fragSrc = f_src.c_str(); 
-    glShaderSource(fragmentShader, 1, &fragSrc, nullptr);
-    glCompileShader(fragmentShader);
-    
-    // link shaders
+    glShaderSource(fs, 1, &fragSrc, NULL);
+    glCompileShader(fs);
+    glGetShaderiv(fs, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        glGetShaderInfoLog(fs, 512, NULL, error_msg);
+        std::cout << "Fragment Shader Failed: " << error_msg << std::endl;
+    }
+
     shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
+    glAttachShader(shaderProgram, vs);
+    glAttachShader(shaderProgram, fs);
     glLinkProgram(shaderProgram);
-    
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
+    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+    if (!success) {
+        glGetProgramInfoLog(shaderProgram, 512, NULL, error_msg);
+        std::cout << "Program Link Error: " << error_msg << std::endl;
+    }
+    glDeleteShader(vs);
+    glDeleteShader(fs);
 }
 
 

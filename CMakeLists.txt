@@ -12,6 +12,7 @@ add_executable(opengl_engine
     src/Graphics/glad.c
     src/Graphics/Shaders/Shaders.cpp
     src/Graphics/Obj_loader/Obj_loader.cpp
+    src/Graphics/Renderer/Renderer.cpp
 
     src/UI/window/Window.cpp
 )
