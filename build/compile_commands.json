@@ -19,9 +19,9 @@
 },
 {
   "directory": "/home/mk/Documents/OPENGL_ENGINE/build",
-  "command": "/usr/bin/g++ -I/home/mk/Documents/OPENGL_ENGINE/include -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/opengl_engine.dir/src/Graphics/Obj_loader/Obj_loader.cpp.o -c /home/mk/Documents/OPENGL_ENGINE/src/Graphics/Obj_loader/Obj_loader.cpp",
-  "file": "/home/mk/Documents/OPENGL_ENGINE/src/Graphics/Obj_loader/Obj_loader.cpp",
-  "output": "CMakeFiles/opengl_engine.dir/src/Graphics/Obj_loader/Obj_loader.cpp.o"
+  "command": "/usr/bin/g++ -I/home/mk/Documents/OPENGL_ENGINE/include -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/opengl_engine.dir/src/Graphics/ObjLoader/ObjLoader.cpp.o -c /home/mk/Documents/OPENGL_ENGINE/src/Graphics/ObjLoader/ObjLoader.cpp",
+  "file": "/home/mk/Documents/OPENGL_ENGINE/src/Graphics/ObjLoader/ObjLoader.cpp",
+  "output": "CMakeFiles/opengl_engine.dir/src/Graphics/ObjLoader/ObjLoader.cpp.o"
 },
 {
   "directory": "/home/mk/Documents/OPENGL_ENGINE/build",
@@ -31,8 +31,20 @@
 },
 {
   "directory": "/home/mk/Documents/OPENGL_ENGINE/build",
+  "command": "/usr/bin/g++ -I/home/mk/Documents/OPENGL_ENGINE/include -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/opengl_engine.dir/src/UI/UserInput/UserInput.cpp.o -c /home/mk/Documents/OPENGL_ENGINE/src/UI/UserInput/UserInput.cpp",
+  "file": "/home/mk/Documents/OPENGL_ENGINE/src/UI/UserInput/UserInput.cpp",
+  "output": "CMakeFiles/opengl_engine.dir/src/UI/UserInput/UserInput.cpp.o"
+},
+{
+  "directory": "/home/mk/Documents/OPENGL_ENGINE/build",
   "command": "/usr/bin/g++ -I/home/mk/Documents/OPENGL_ENGINE/include -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/opengl_engine.dir/src/UI/window/Window.cpp.o -c /home/mk/Documents/OPENGL_ENGINE/src/UI/window/Window.cpp",
   "file": "/home/mk/Documents/OPENGL_ENGINE/src/UI/window/Window.cpp",
   "output": "CMakeFiles/opengl_engine.dir/src/UI/window/Window.cpp.o"
+},
+{
+  "directory": "/home/mk/Documents/OPENGL_ENGINE/build",
+  "command": "/usr/bin/g++ -I/home/mk/Documents/OPENGL_ENGINE/include -isystem /usr/include/SDL2 -g -std=gnu++17 -o CMakeFiles/opengl_engine.dir/src/UI/Camera/Camera.cpp.o -c /home/mk/Documents/OPENGL_ENGINE/src/UI/Camera/Camera.cpp",
+  "file": "/home/mk/Documents/OPENGL_ENGINE/src/UI/Camera/Camera.cpp",
+  "output": "CMakeFiles/opengl_engine.dir/src/UI/Camera/Camera.cpp.o"
 }
 ]

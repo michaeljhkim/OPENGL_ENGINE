@@ -1,4 +1,6 @@
-#include <Headers/Shaders.h>
+//alot of this is still temporary. Just default code from graphics class. Need to learn how to create dynamic lighting and shaders 
+
+#include <Headers/Shaders.hpp>
 
 //default libraries for general c++ functions and stuff
 #include <stdio.h>

@@ -1,5 +1,5 @@
-#include <Headers/Renderer.h>
-#include <Headers/Obj_loader.h>
+#include <Headers/Renderer.hpp>
+#include <Headers/ObjLoader.hpp>
 
 //default libraries for general c++ functions and stuff
 #include <stdio.h>
@@ -20,7 +20,7 @@ Renderer::Renderer() {
     
 }
 
-void Renderer::Generate_VAO_VBO_EBO(Obj_loader& loaded_Obj) {
+void Renderer::Generate_VAO_VBO_EBO(ObjLoader& loaded_Obj) {
     std::vector<float> vertices_buffer;
     std::vector<GLuint> indices;
 

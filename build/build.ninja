@@ -70,12 +70,12 @@ build CMakeFiles/opengl_engine.dir/src/Graphics/Shaders/Shaders.cpp.o: CXX_COMPI
   OBJECT_DIR = CMakeFiles/opengl_engine.dir
   OBJECT_FILE_DIR = CMakeFiles/opengl_engine.dir/src/Graphics/Shaders
 
-build CMakeFiles/opengl_engine.dir/src/Graphics/Obj_loader/Obj_loader.cpp.o: CXX_COMPILER__opengl_engine_unscanned_Debug /home/mk/Documents/OPENGL_ENGINE/src/Graphics/Obj_loader/Obj_loader.cpp || cmake_object_order_depends_target_opengl_engine
-  DEP_FILE = CMakeFiles/opengl_engine.dir/src/Graphics/Obj_loader/Obj_loader.cpp.o.d
+build CMakeFiles/opengl_engine.dir/src/Graphics/ObjLoader/ObjLoader.cpp.o: CXX_COMPILER__opengl_engine_unscanned_Debug /home/mk/Documents/OPENGL_ENGINE/src/Graphics/ObjLoader/ObjLoader.cpp || cmake_object_order_depends_target_opengl_engine
+  DEP_FILE = CMakeFiles/opengl_engine.dir/src/Graphics/ObjLoader/ObjLoader.cpp.o.d
   FLAGS = -g -std=gnu++17
   INCLUDES = -I/home/mk/Documents/OPENGL_ENGINE/include -isystem /usr/include/SDL2
   OBJECT_DIR = CMakeFiles/opengl_engine.dir
-  OBJECT_FILE_DIR = CMakeFiles/opengl_engine.dir/src/Graphics/Obj_loader
+  OBJECT_FILE_DIR = CMakeFiles/opengl_engine.dir/src/Graphics/ObjLoader
 
 build CMakeFiles/opengl_engine.dir/src/Graphics/Renderer/Renderer.cpp.o: CXX_COMPILER__opengl_engine_unscanned_Debug /home/mk/Documents/OPENGL_ENGINE/src/Graphics/Renderer/Renderer.cpp || cmake_object_order_depends_target_opengl_engine
   DEP_FILE = CMakeFiles/opengl_engine.dir/src/Graphics/Renderer/Renderer.cpp.o.d
@@ -84,12 +84,26 @@ build CMakeFiles/opengl_engine.dir/src/Graphics/Renderer/Renderer.cpp.o: CXX_COM
   OBJECT_DIR = CMakeFiles/opengl_engine.dir
   OBJECT_FILE_DIR = CMakeFiles/opengl_engine.dir/src/Graphics/Renderer
 
+build CMakeFiles/opengl_engine.dir/src/UI/UserInput/UserInput.cpp.o: CXX_COMPILER__opengl_engine_unscanned_Debug /home/mk/Documents/OPENGL_ENGINE/src/UI/UserInput/UserInput.cpp || cmake_object_order_depends_target_opengl_engine
+  DEP_FILE = CMakeFiles/opengl_engine.dir/src/UI/UserInput/UserInput.cpp.o.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I/home/mk/Documents/OPENGL_ENGINE/include -isystem /usr/include/SDL2
+  OBJECT_DIR = CMakeFiles/opengl_engine.dir
+  OBJECT_FILE_DIR = CMakeFiles/opengl_engine.dir/src/UI/UserInput
+
 build CMakeFiles/opengl_engine.dir/src/UI/window/Window.cpp.o: CXX_COMPILER__opengl_engine_unscanned_Debug /home/mk/Documents/OPENGL_ENGINE/src/UI/window/Window.cpp || cmake_object_order_depends_target_opengl_engine
   DEP_FILE = CMakeFiles/opengl_engine.dir/src/UI/window/Window.cpp.o.d
   FLAGS = -g -std=gnu++17
   INCLUDES = -I/home/mk/Documents/OPENGL_ENGINE/include -isystem /usr/include/SDL2
   OBJECT_DIR = CMakeFiles/opengl_engine.dir
   OBJECT_FILE_DIR = CMakeFiles/opengl_engine.dir/src/UI/window
+
+build CMakeFiles/opengl_engine.dir/src/UI/Camera/Camera.cpp.o: CXX_COMPILER__opengl_engine_unscanned_Debug /home/mk/Documents/OPENGL_ENGINE/src/UI/Camera/Camera.cpp || cmake_object_order_depends_target_opengl_engine
+  DEP_FILE = CMakeFiles/opengl_engine.dir/src/UI/Camera/Camera.cpp.o.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I/home/mk/Documents/OPENGL_ENGINE/include -isystem /usr/include/SDL2
+  OBJECT_DIR = CMakeFiles/opengl_engine.dir
+  OBJECT_FILE_DIR = CMakeFiles/opengl_engine.dir/src/UI/Camera
 
 
 # =============================================================================
@@ -99,7 +113,7 @@ build CMakeFiles/opengl_engine.dir/src/UI/window/Window.cpp.o: CXX_COMPILER__ope
 #############################################
 # Link the executable opengl_engine
 
-build opengl_engine: CXX_EXECUTABLE_LINKER__opengl_engine_Debug CMakeFiles/opengl_engine.dir/src/main.cpp.o CMakeFiles/opengl_engine.dir/src/Graphics/glad.c.o CMakeFiles/opengl_engine.dir/src/Graphics/Shaders/Shaders.cpp.o CMakeFiles/opengl_engine.dir/src/Graphics/Obj_loader/Obj_loader.cpp.o CMakeFiles/opengl_engine.dir/src/Graphics/Renderer/Renderer.cpp.o CMakeFiles/opengl_engine.dir/src/UI/window/Window.cpp.o | /usr/lib/libSDL2main.a /usr/lib/libSDL2-2.0.so.0.3000.8
+build opengl_engine: CXX_EXECUTABLE_LINKER__opengl_engine_Debug CMakeFiles/opengl_engine.dir/src/main.cpp.o CMakeFiles/opengl_engine.dir/src/Graphics/glad.c.o CMakeFiles/opengl_engine.dir/src/Graphics/Shaders/Shaders.cpp.o CMakeFiles/opengl_engine.dir/src/Graphics/ObjLoader/ObjLoader.cpp.o CMakeFiles/opengl_engine.dir/src/Graphics/Renderer/Renderer.cpp.o CMakeFiles/opengl_engine.dir/src/UI/UserInput/UserInput.cpp.o CMakeFiles/opengl_engine.dir/src/UI/window/Window.cpp.o CMakeFiles/opengl_engine.dir/src/UI/Camera/Camera.cpp.o | /usr/lib/libSDL2main.a /usr/lib/libSDL2-2.0.so.0.3000.8
   FLAGS = -g
   LINK_LIBRARIES = /usr/lib/libSDL2main.a  /usr/lib/libSDL2-2.0.so.0.3000.8  -ltinyobjloader
   OBJECT_DIR = CMakeFiles/opengl_engine.dir

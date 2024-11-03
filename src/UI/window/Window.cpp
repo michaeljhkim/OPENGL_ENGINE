@@ -1,7 +1,9 @@
 // -- Window.cpp --
-#include <Headers/Window.h>
-#include <Headers/Obj_loader.h>
-#include <Headers/Renderer.h>
+#include <Headers/Window.hpp>
+#include <Headers/ObjLoader.hpp>
+#include <Headers/Renderer.hpp>
+#include <Headers/Shaders.hpp>
+#include <Headers/UserInput.hpp>
 
 //default libraries for general c++ functions and stuff
 #include <stdio.h>
@@ -12,86 +14,90 @@
 //Window and graphics stuff
 #include <SDL2/SDL.h>
 #include <glad/glad.h>
-#include <Headers/Shaders.h>
-
-#include <glad/glad.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <tiny_obj_loader.h>
 
 
-void render_loop(SDL_Window* window);
-void framebuffer_size_callback(SDL_Window* window);
+void render_loop(SDL_Window* gGraphicsApplicationWindow);
+void framebuffer_size_callback(SDL_Window* gGraphicsApplicationWindow);
+SDL_Window* gGraphicsApplicationWindow;
+int gScreenWidth;
+int gScreenHeight;
 
 
-Window::Window(int win_width, int win_height) {
+Window::Window() {
+}
+
+int Window::get_gScreenWidth() { return gScreenWidth; }
+int Window::get_gScreenHeight() { return gScreenHeight; }
+
+void Window::CreateWindow(int win_width, int win_height) {
+    gScreenWidth = win_width;
+    gScreenHeight = win_height;
+
     // Initialize SDL
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         std::cerr << "SDL failed to initialize: " << SDL_GetError() << std::endl;
-        return;
+        exit(1);
     }
 
     // Set OpenGL version and profile
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4.6);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 4.6);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 1);
 
     // Create SDL window with OpenGL context
-    SDL_Window* window = SDL_CreateWindow("SDL Example",    /* Title of the SDL window */
+    gGraphicsApplicationWindow = SDL_CreateWindow("SDL Example",    /* Title of the SDL window */
                 SDL_WINDOWPOS_UNDEFINED,    /* Position x of the window */
                 SDL_WINDOWPOS_UNDEFINED,    /* Position y of the window */
                 win_width, win_height,     /* Width and Height of the window in pixels */
                 SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);     /* Additional flag(s) */
 
-    if (!window) {
+    if (!gGraphicsApplicationWindow) {
         std::cerr << "Failed to create SDL window: " << SDL_GetError() << std::endl;
         SDL_Quit();
         return;
     }
 
     // Create an OpenGL context
-    SDL_GLContext gl_context = SDL_GL_CreateContext(window);
+    SDL_GLContext gl_context = SDL_GL_CreateContext(gGraphicsApplicationWindow);
     if (!gl_context) {
         std::cerr << "Failed to create OpenGL context: " << SDL_GetError() << std::endl;
-        SDL_DestroyWindow(window);
+        SDL_DestroyWindow(gGraphicsApplicationWindow);
         SDL_Quit();
         return;
     }
 
     // Set the context to be current
-    SDL_GL_MakeCurrent(window, gl_context);
+    SDL_GL_MakeCurrent(gGraphicsApplicationWindow, gl_context);
 
     // Load GLAD
     if (!gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress)) {
         std::cerr << "Failed to initialize GLAD" << std::endl;
         SDL_GL_DeleteContext(gl_context);
-        SDL_DestroyWindow(window);
+        SDL_DestroyWindow(gGraphicsApplicationWindow);
         SDL_Quit();
         return;
     }
 
     // Set initial viewport size
-    framebuffer_size_callback(window);
+    framebuffer_size_callback(gGraphicsApplicationWindow);
+}      
 
-
-
-    /* ------------------------------------ MAIN PROCESSING LOOP ------------------------------------ */
-    render_loop(window);
-
-    // Frees memory and Shuts down all SDL subsystems
-    SDL_DestroyWindow(window);
+void Window::Window_CleanUp() {
+    SDL_DestroyWindow(gGraphicsApplicationWindow);
     SDL_Quit(); 
 }
 
 
-
 // Callback function to handle window resize
-void framebuffer_size_callback(SDL_Window* window) {
+void framebuffer_size_callback(SDL_Window* gGraphicsApplicationWindow) {
     int width, height;
-    SDL_GetWindowSize(window, &width, &height);
+    SDL_GetWindowSize(gGraphicsApplicationWindow, &width, &height);
     glViewport(0, 0, width, height);
 }
+
+/*
 
 
 //We seperate so child classes can have an easier time editing code
@@ -112,31 +118,46 @@ void render_loop(SDL_Window* window) {
     Shaders gl_shader(core_program);
 
 
-    //Obj_loader load_obj(obj_path, test_attrib, test_shapes);
-    //load_obj.Generate_VAO_VBO_EBO(VAO, VBO, EBO, test_attrib, test_shapes);
     //system("pwd");    // for seeing where the executable is being run
 
-    //Obj_loader loads and contains everything we need
+    // TEMPORARY THING, JUST FOR TESTING
+    // STILL NEED TO WORK ON MAKING A DYNAMIC SHAPE LOADER
     std::string obj_path = "temp_asset_folder/data/faces/0.obj";
-    std::vector<Obj_loader> shape_dictionary;
-    Obj_loader test_obj(obj_path);
+    std::vector<ObjLoader> shape_dictionary;
+    ObjLoader test_obj(obj_path);
     shape_dictionary.push_back(test_obj);
     Renderer temp_rend; //for testing
 
 
     //for handling user input
     SDL_Event event;
+    UserInput test_uin; 
 
     //setup up stuff
     glm::mat4 model = glm::mat4(1.0f);
-    //glm::mat4 view = glm::lookAt(glm::vec3(-2.0f, 3.0f, 10.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)); 
     glm::mat4 view = glm::lookAt(glm::vec3(20.0f, 100.0f, 200.0f), glm::vec3(0.0f, 110.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     glm::mat4 projection = glm::perspective(glm::radians(30.0f), 1.0f, 0.1f, 1000.0f);
     glm::mat4 mvp = projection * view;
 
+    SDL_SetRelativeMouseMode(SDL_TRUE); 
+
     //Actual render loop
     //while the user input event type is not quit, keep looping
     while( !(event.type == SDL_QUIT) ) {
+        SDL_PollEvent(&event);
+        test_uin.User_Movement(event);
+        if (event.type == SDL_MOUSEMOTION) 
+            test_uin.User_MLook(event);
+
+        glm::mat4 model = glm::mat4(1.0f);
+        glm::vec3 cameraPosition = glm::vec3(20.0f + test_uin.User_x, 100.0f + test_uin.User_y, 200.0f + test_uin.User_z);
+        glm::vec3 targetPosition = cameraPosition + test_uin.direction; // Look in the direction the camera is facing
+        glm::mat4 view = glm::lookAt(cameraPosition, test_uin.direction, glm::vec3(0.0f, 1.0f, 0.0f));
+
+        glm::mat4 projection = glm::perspective(glm::radians(30.0f), 1.0f, 0.1f, 1000.0f);
+        glm::mat4 mvp = projection * view;
+
+
         // input
         //temp_input_func();
         temp_rend.Generate_VAO_VBO_EBO(shape_dictionary[0]);
@@ -157,7 +178,6 @@ void render_loop(SDL_Window* window) {
         glDrawArrays(GL_TRIANGLES, 0, shape_dictionary[0].shapes[0].mesh.indices.size());
 
         SDL_GL_SwapWindow(window);
-        SDL_PollEvent(&event);
     }
 
     // optional: de-allocate all resources once they've outlived their purpose:
@@ -167,8 +187,7 @@ void render_loop(SDL_Window* window) {
     glDeleteProgram(core_program);
 }
 
-
-
+*/
 
 
 
